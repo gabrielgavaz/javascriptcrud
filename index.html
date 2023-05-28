@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css.css">
+    <title>Document</title>
+</head>
+
+<body onload="actualizarVista()">
+
+    <div class="full-width" id="pregunta">
+        <h2>Coloca tu presupuesto</h2>
+        <div id="msj_error_pregunta"></div>
+        <form class="fomularioPresupuesto" action="">
+            <input type="number" id="presupuestoInicial" class="primerBoton" placeholder="coloca tu presupuesto">
+            <input type="button" onclick="guardarPresupuesto()" class="botonPrincipal full-width" value="crear presupuesto">
+        </form>
+    </div>
+
+
+    <div id="divGastos">
+            <form action="#" id="form">
+                <div>
+                    <input type="text" id="tipoGasto" placeholder="Ej. Alimentos">
+                    <input type="number" id="cantidadGasto" placeholder="Ej. 300">
+                    <input type="button" value="Agregar" id="btnAgregar" onclick="agregarGasto()">
+                </div>
+                <div id="msg"></div>
+            </form>
+
+
+
+        <table id="table">
+            <tr>
+                <th>Tipo de Gasto</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+            </tr>
+        </table>
+
+
+        <div id="divControlGastos"></div>
+    </div>
+
+    <script src="/js.js"></script>
+</body>
+</html>
