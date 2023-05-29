@@ -1,6 +1,6 @@
 // variables globales
 let fila = null;
-restante = 0;
+let restante = 0;
 
 
 
@@ -72,6 +72,7 @@ const agregarGasto = () =>{
         if( fila == null){
             insertar(leerDatos);
             msg.innerHTML= "datos insertados"; 
+
         }else{
             update();
             msg.innerHTML= "datos actualizados";
@@ -126,6 +127,7 @@ const insertar = (leerDatos) =>{
     fila.insertCell(1).innerHTML = leerDatos[1];
     fila.insertCell(2).innerHTML = `<button onclick = edit(this)>edit</button>
     <button onclick = remove(this)>Borrar</button>`;
+
 }
 
 //editar fila
@@ -146,16 +148,38 @@ const update = () =>{
 
 //eliminar fila
 
-const remove = (td) =>{
-    let ans = confirm("are you sure");
-    if(ans == true){
-        fila = td.parentElement.parentElement;
-        document.getElementById("table").deleteRow(fila.rowIndex);
-    }
+// const remove = (td) =>{
+//     let ans = confirm("are you sure");
+//     if(ans == true){
+//         fila = td.parentElement.parentElement;
+//         document.getElementById("table").deleteRow(fila.rowIndex);
+//     }
 
      
-}
+// }
 
+const remove = (td) => {
+    Swal.fire({
+      title: '¿Estas seguro de eliminar el gasto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminalo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const fila = td.parentElement.parentElement;
+        document.getElementById("table").deleteRow(fila.rowIndex);
+        Swal.fire(
+          'Eliminado!',
+          'Tu gasto ha sido eliminado.',
+          'success'
+        );
+      }
+    });
+  };
+  
 
 //mostrar error
 const mostrarError = (elemento, mensaje) => {
