@@ -1,7 +1,7 @@
 // variables globales
 let fila = null;
 let restante = 0;
-
+localStorage.setItem("gastos", JSON.stringify([]));
 
 
 
@@ -65,6 +65,7 @@ const reiniciarPresupuesto=()=>{
 const agregarGasto = () =>{
     let datosRecuperados = recuperarDatos();
     let leerDatos = datosLocalStorage(datosRecuperados);
+    
 
     if(datosRecuperados == false){
         msg.innerHTML = "Ingrese datos"
@@ -73,12 +74,12 @@ const agregarGasto = () =>{
             insertar(leerDatos);
             msg.innerHTML= "datos insertados"; 
 
+
         }else{
             update();
             msg.innerHTML= "datos actualizados";
         }
     }
-
 
  
 }
@@ -107,6 +108,7 @@ let recuperarDatos =() =>{
 //datos en el localStorage
 let datosLocalStorage = (datosRecuperados) =>{
 
+
     // guardamos los datos en el localStorage
     let tg = localStorage.setItem('tipo de gasto', datosRecuperados[0]);
     let cg = localStorage.setItem('cantidad de gasto', datosRecuperados[1]);
@@ -114,6 +116,10 @@ let datosLocalStorage = (datosRecuperados) =>{
     //obtenemos los datos del localStorage
     let tg1 = localStorage.getItem('tipo de gasto', tg);
     let cg1 = localStorage.getItem('cantidad de gasto', cg);
+
+    let gastos = JSON.parse(localStorage.getItem("gastos"));
+    gastos.push(cg1);
+    localStorage.setItem("gastos", JSON.stringify(gastos));
 
     let arr = [tg1, cg1];
     return arr;
@@ -127,6 +133,7 @@ const insertar = (leerDatos) =>{
     fila.insertCell(1).innerHTML = leerDatos[1];
     fila.insertCell(2).innerHTML = `<button onclick = edit(this)>edit</button>
     <button onclick = remove(this)>Borrar</button>`;
+
 
 }
 
@@ -180,6 +187,23 @@ const remove = (td) => {
     });
   };
   
+
+
+//actualizar restante
+ const actualizarRestante = () => {
+  let presupuesto = parseInt(localStorage.getItem("presupuesto"));
+  let gastos = JSON.parse(localStorage.getItem("gastos"));
+
+  let gastoTotal = 0;
+
+
+  gastos.forEach(gasto => {
+    gastoTotal += parseInt(gasto);
+    });
+
+  console.log(gastoTotal);
+ }
+
 
 //mostrar error
 const mostrarError = (elemento, mensaje) => {
